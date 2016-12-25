@@ -9,21 +9,20 @@ import model.LineType;
 import model.LineStyle;
 import model.abstracts.Edge;
 import model.abstracts.Node;
+
 /**
- 	UML klasni dijagram.
-*/
-public class ClassDiagram extends Diagram 
-{
-	public ClassDiagram(AppModel application)
-	{
+ * UML 类图
+ */
+public class ClassDiagram extends Diagram {
+
+	public ClassDiagram(AppModel application) {
 		super(application);
 	}
-	
-	public ClassDiagram()
-	{
+
+	public ClassDiagram() {
 		super();
 	}
-	
+
 	public boolean connect(Edge e, Point2D p1, Point2D p2) {
 		Node n1 = findNode(p1);
 		Node n2 = findNode(p2);

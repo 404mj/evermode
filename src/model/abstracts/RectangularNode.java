@@ -12,11 +12,17 @@ import java.io.ObjectOutputStream;
 import model.Direction;
 import model.Diagram;
 import view.Grid;
-/**
-	�vor koji ima pravougaoni oblik.
-*/
 
+/**
+ * 作为矩形图元父类
+ * 
+ * 抽象的
+ * 
+ * @author zsx
+ *
+ */
 public abstract class RectangularNode extends AbstractNode {
+
 	public Object clone() {
 		RectangularNode cloned = (RectangularNode) super.clone();
 		cloned.bounds = (Rectangle2D) bounds.clone();
@@ -24,8 +30,7 @@ public abstract class RectangularNode extends AbstractNode {
 	}
 
 	public void translate(double dx, double dy) {
-		bounds.setFrame(bounds.getX() + dx, bounds.getY() + dy,
-				bounds.getWidth(), bounds.getHeight());
+		bounds.setFrame(bounds.getX() + dx, bounds.getY() + dy, bounds.getWidth(), bounds.getHeight());
 		super.translate(dx, dy);
 	}
 
@@ -53,7 +58,7 @@ public abstract class RectangularNode extends AbstractNode {
 		double y = bounds.getCenterY();
 
 		if (ex != 0 && -slope <= ey / ex && ey / ex <= slope) {
-			// intersects at left or right boundary
+			// 在左右边界相交
 			if (ex > 0) {
 				x = bounds.getMaxX();
 				y += (bounds.getWidth() / 2) * ey / ex;
@@ -62,7 +67,7 @@ public abstract class RectangularNode extends AbstractNode {
 				y -= (bounds.getWidth() / 2) * ey / ex;
 			}
 		} else if (ey != 0) {
-			// intersects at top or bottom
+			// 在上或底相交
 			if (ey > 0) {
 				x += (bounds.getHeight() / 2) * ex / ey;
 				y = bounds.getMaxY();
@@ -80,34 +85,32 @@ public abstract class RectangularNode extends AbstractNode {
 	}
 
 	/**
-	    Pomo�na metoda za prevazila�enje problema kada 2D oblici nisu "serializable".
-	    On pi�e x, y, �irinu i visinu i proslje�uje ih u ulazni tok.
-	    @param out je ulazni tok
-	    @param s je oblik      
+	 * 
+	 * 讲该窗体的参数输出到标准输出流
+	 * 
+	 * @param out
+	 * @param s
 	 */
-	private static void writeRectangularShape(ObjectOutputStream out,
-			RectangularShape s) throws IOException {
+	private static void writeRectangularShape(ObjectOutputStream out, RectangularShape s) throws IOException {
 		out.writeDouble(s.getX());
 		out.writeDouble(s.getY());
 		out.writeDouble(s.getWidth());
 		out.writeDouble(s.getHeight());
 	}
 
-	private void readObject(ObjectInputStream in) throws IOException,
-			ClassNotFoundException {
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		bounds = new Rectangle2D.Double();
 		readRectangularShape(in, bounds);
 	}
 
 	/**
-	    Pomo�na metoda za prevazila�enje problema kada 2D oblici nisu "serializable".
-	    On �ita x, y, �irinu i visinu iz ulaznog toka.
-	    @param in je ulazni tok
-	    @param s je oblik �iji je ram postavljen od strane vrijednosti ulaznog toka
-    */
-	private static void readRectangularShape(ObjectInputStream in,
-			RectangularShape s) throws IOException {
+	 * 从标准输入流中读入窗体的图形的参数
+	 * 
+	 * @param in
+	 * @param s
+	 */
+	private static void readRectangularShape(ObjectInputStream in, RectangularShape s) throws IOException {
 		double x = in.readDouble();
 		double y = in.readDouble();
 		double width = in.readDouble();

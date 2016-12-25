@@ -8,8 +8,10 @@ import java.awt.geom.Rectangle2D;
 import model.Direction;
 
 /**
-Klasa koja podr�ava implementaciju za vi�e metoda u Edge(ivica) interfejsu.
-*/
+ * 实现在接口中定义的方法！
+ * 
+ * 抽象类:Edge
+ */
 abstract class AbstractEdge implements Edge {
 	public Object clone() {
 		try {
@@ -35,21 +37,17 @@ abstract class AbstractEdge implements Edge {
 	public Rectangle2D getBounds(Graphics2D g2) {
 		Line2D conn = getConnectionPoints();
 		Rectangle2D r = new Rectangle2D.Double();
-		r.setFrameFromDiagonal(conn.getX1(), conn.getY1(), conn.getX2(),
-				conn.getY2());
+		r.setFrameFromDiagonal(conn.getX1(), conn.getY1(), conn.getX2(), conn.getY2());
 		return r;
 	}
 
 	public Line2D getConnectionPoints() {
 		Rectangle2D startBounds = start.getBounds();
 		Rectangle2D endBounds = end.getBounds();
-		Point2D startCenter = new Point2D.Double(startBounds.getCenterX(),
-				startBounds.getCenterY());
-		Point2D endCenter = new Point2D.Double(endBounds.getCenterX(),
-				endBounds.getCenterY());
+		Point2D startCenter = new Point2D.Double(startBounds.getCenterX(), startBounds.getCenterY());
+		Point2D endCenter = new Point2D.Double(endBounds.getCenterX(), endBounds.getCenterY());
 		Direction toEnd = new Direction(startCenter, endCenter);
-		return new Line2D.Double(start.getConnectionPoint(toEnd),
-				end.getConnectionPoint(toEnd.turn(180)));
+		return new Line2D.Double(start.getConnectionPoint(toEnd), end.getConnectionPoint(toEnd.turn(180)));
 	}
 
 	private Node start;

@@ -15,14 +15,9 @@ import view.Grid;
 import view.property.TextArea;
 
 /**
-	Beleška èvor u UML dijagramu.
-*/
-public class NoteNode extends RectangularNode 
-{
-
-	/**
-    	Konstruiše beleška èvor sa podrazumijevanom velièinom i bojom
-	*/
+ * UML ä¸­çš„æ³¨é‡ŠNoteå›¾å…ƒ
+ */
+public class NoteNode extends RectangularNode {
 	public NoteNode() {
 		setBounds(new Rectangle2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		text = new TextArea();
@@ -45,41 +40,24 @@ public class NoteNode extends RectangularNode
 	public void layout(Diagram g, Graphics2D g2, Grid grid) {
 		Rectangle2D b = text.getBounds(g2); // getMultiLineBounds(name, g2);
 		Rectangle2D bounds = getBounds();
-		b = new Rectangle2D.Double(bounds.getX(), bounds.getY(), Math.max(
-				b.getWidth(), DEFAULT_WIDTH), Math.max(b.getHeight(),
-				DEFAULT_HEIGHT));
+		b = new Rectangle2D.Double(bounds.getX(), bounds.getY(), Math.max(b.getWidth(), DEFAULT_WIDTH),
+				Math.max(b.getHeight(), DEFAULT_HEIGHT));
 		grid.snap(b);
 		setBounds(b);
 	}
 
-	/**
-	    Uzima vrijednost posjeda teksta.
-	    @return vraæa tekst unutar beleške
-    */
 	public TextArea getText() {
 		return text;
 	}
 
-	 /**
-	    Postavlja vrijednost posjeda teksta.
-	    @param newValue je tekst unutar beleške
-    */
 	public void setText(TextArea newValue) {
 		text = newValue;
 	}
 
-	/**
-	    Uzima vrijednost boje posjeda.
-	    @return vraæa boju pozadine beleške
-    */
 	public Color getColor() {
 		return color;
 	}
 
-	/**
-	    Postavlja vrijednost boje posjeda.
-	    @param newValue je boja pozadine beleške
-    */
 	public void setColor(Color newValue) {
 		color = newValue;
 	}
@@ -97,8 +75,7 @@ public class NoteNode extends RectangularNode
 		Rectangle2D bounds = getBounds();
 		GeneralPath fold = new GeneralPath();
 		fold.moveTo((float) (bounds.getMaxX() - FOLD_X), (float) bounds.getY());
-		fold.lineTo((float) bounds.getMaxX() - FOLD_X, (float) bounds.getY()
-				+ FOLD_X);
+		fold.lineTo((float) bounds.getMaxX() - FOLD_X, (float) bounds.getY() + FOLD_X);
 		fold.lineTo((float) bounds.getMaxX(), (float) (bounds.getY() + FOLD_Y));
 		fold.closePath();
 		oldColor = g2.getColor();
@@ -127,9 +104,8 @@ public class NoteNode extends RectangularNode
 		cloned.text = (TextArea) text.clone();
 		return cloned;
 	}
-	
-	public String toString()
-	{
+
+	public String toString() {
 		return "Note Node";
 	}
 

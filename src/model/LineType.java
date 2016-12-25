@@ -5,23 +5,25 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
-	Stil za segmentirane linije, koji ozna�ava broj i redoslijed krivina.
-*/
-public class LineType 
-{
-	private LineType() 
-	{
+ * 连线的风格类
+ * 
+ * 设置弯曲的数目和顺序
+ * 
+ * @author zsx
+ *
+ */
+public class LineType {
+	private LineType() {
 	}
 
-	 /**
-	    Uzima ta�ke u kojima je linija spajanja 2 pravougaonika savijena 
-	    prema ovome linijskom stilu.
-	    @param start po�etni pravougaonik
-	    @param end krajnji pravougaonik
-	    @return vra�a spisak niza ta�aka u kojima se linija savija i spaja 2 pravougoanika
-     */
-	public ArrayList getPath(Rectangle2D start, Rectangle2D end)
-	{
+	/**
+	 * 根据线的style 得到连接两个图形弯曲的点
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public ArrayList getPath(Rectangle2D start, Rectangle2D end) {
 		ArrayList r = getPath(this, start, end);
 		if (r != null)
 			return r;
@@ -43,8 +45,13 @@ public class LineType
 	}
 
 	/**
-	    Dobija 4 povezuju�e ta�ke u kojima se savijena linija povezuje sa pravougaonikom.
-    */
+	 * 得到可以与矩形连接的四个点！
+	 * 
+	 * 上下左右！
+	 * 
+	 * @param r
+	 * @return
+	 */
 	private static Point2D[] connectionPoints(Rectangle2D r) {
 		Point2D[] a = new Point2D[4];
 		a[0] = new Point2D.Double(r.getX(), r.getCenterY());
@@ -55,14 +62,9 @@ public class LineType
 	}
 
 	/**
-	    Dobija ta�ke u kojima je linija pridru�ivanja 2 pravougaonika savijena
-	    prema linijskom stilu.
-	 	@param start po�etni pravougaonik
-	    @param end krajnji pravougaonik
-	    @return vra�a spisak niza ta�aka u kojima se linija savija i pridru�uje 2 pravougoanika
-    */
-	private static ArrayList getPath(LineType bent, Rectangle2D s,
-			Rectangle2D e) {
+	 * 得到弯曲点
+	 */
+	private static ArrayList getPath(LineType bent, Rectangle2D s, Rectangle2D e) {
 		ArrayList r = new ArrayList();
 		if (bent == STRAIGHT) {
 			Point2D[] a = connectionPoints(s);
@@ -174,10 +176,8 @@ public class LineType
 	}
 
 	/**
-	    Dobija ta�ke u kojima je linija pridru�ivanja 2 pravougaonika savijena
-	    prema linijskom stilu.
-	    @param s je po�etni i krajnji pravougaonik
-    */
+	 * 得到连接自己的先的弯曲点
+	 */
 	private static ArrayList getSelfPath(Rectangle2D s) {
 		ArrayList r = new ArrayList();
 		double x1 = s.getX() + s.getWidth() * 3 / 4;
@@ -198,6 +198,13 @@ public class LineType
 	private static final int SELF_WIDTH = 30;
 	private static final int SELF_HEIGHT = 25;
 
+	/**
+	 * Horizontal! 
+	 * 
+	 * Vertical!
+	 * 
+	 * @author zsx
+	 */
 	public static final LineType STRAIGHT = new LineType();
 	public static final LineType HV = new LineType();
 	public static final LineType VH = new LineType();

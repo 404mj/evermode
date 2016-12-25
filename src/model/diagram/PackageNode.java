@@ -17,25 +17,23 @@ import view.Grid;
 import view.property.TextArea;
 
 /**
-	Èvor u UML dijagramu.
-*/
-public class PackageNode extends RectangularNode 
-{
+ * UMLä¸­çš„packageå›¾å…ƒ
+ */
+public class PackageNode extends RectangularNode {
 
 	/**
-    	Konstruiše èvor podrazumijevane velièine.
-	*/
+	 * é»˜è®¤æž„é€ èŠ‚ç‚¹å¤§å°
+	 */
 	public PackageNode() {
 		name = "";
 		contents = new TextArea();
 		setBounds(new Rectangle2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
-		top = new Rectangle2D.Double(0, 0, DEFAULT_TOP_WIDTH,
-				DEFAULT_TOP_HEIGHT);
-		bot = new Rectangle2D.Double(0, DEFAULT_TOP_HEIGHT, DEFAULT_WIDTH,
-				DEFAULT_HEIGHT - DEFAULT_TOP_HEIGHT);
+		top = new Rectangle2D.Double(0, 0, DEFAULT_TOP_WIDTH, DEFAULT_TOP_HEIGHT);
+		bot = new Rectangle2D.Double(0, DEFAULT_TOP_HEIGHT, DEFAULT_WIDTH, DEFAULT_HEIGHT - DEFAULT_TOP_HEIGHT);
 	}
 
 	public void draw(Graphics2D g2) {
+		// packageçš„ç”»å›¾æ–¹æ³•
 		super.draw(g2);
 		Rectangle2D bounds = getBounds();
 
@@ -71,22 +69,18 @@ public class PackageNode extends RectangularNode
 		label.setFont(g2.getFont());
 		Dimension d = label.getPreferredSize();
 
-		top = new Rectangle2D.Double(bounds.getX(), bounds.getY(), Math.max(
-				d.getWidth(), DEFAULT_TOP_WIDTH), Math.max(d.getHeight(),
-				DEFAULT_TOP_HEIGHT));
+		top = new Rectangle2D.Double(bounds.getX(), bounds.getY(), Math.max(d.getWidth(), DEFAULT_TOP_WIDTH),
+				Math.max(d.getHeight(), DEFAULT_TOP_HEIGHT));
 
 		bot = contents.getBounds(g2);
-		Rectangle2D min = new Rectangle2D.Double(0, 0, DEFAULT_WIDTH,
-				DEFAULT_HEIGHT - DEFAULT_TOP_HEIGHT);
+		Rectangle2D min = new Rectangle2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT - DEFAULT_TOP_HEIGHT);
 		bot.add(min);
-		double width = Math.max(top.getWidth() + DEFAULT_WIDTH
-				- DEFAULT_TOP_WIDTH, bot.getWidth());
+		double width = Math.max(top.getWidth() + DEFAULT_WIDTH - DEFAULT_TOP_WIDTH, bot.getWidth());
 		double height = top.getHeight() + bot.getHeight();
 
 		List children = getChildren();
 		if (children.size() > 0) {
-			Rectangle2D childBounds = new Rectangle2D.Double(bounds.getX(),
-					bounds.getY(), 0, 0);
+			Rectangle2D childBounds = new Rectangle2D.Double(bounds.getX(), bounds.getY(), 0, 0);
 			for (int i = 0; i < children.size(); i++) {
 				Node child = (Node) children.get(i);
 				child.layout(g, g2, grid);
@@ -95,48 +89,29 @@ public class PackageNode extends RectangularNode
 			width = Math.max(width, childBounds.getWidth() + XGAP);
 			height = Math.max(height, childBounds.getHeight() + YGAP);
 		}
-		Rectangle2D b = new Rectangle2D.Double(bounds.getX(), bounds.getY(),
-				width, height);
+		Rectangle2D b = new Rectangle2D.Double(bounds.getX(), bounds.getY(), width, height);
 		grid.snap(b);
 		setBounds(b);
 
-		top = new Rectangle2D.Double(bounds.getX(), bounds.getY(), Math.max(
-				d.getWidth() + 2 * NAME_GAP, DEFAULT_TOP_WIDTH), Math.max(
-				d.getHeight(), DEFAULT_TOP_HEIGHT));
+		top = new Rectangle2D.Double(bounds.getX(), bounds.getY(),
+				Math.max(d.getWidth() + 2 * NAME_GAP, DEFAULT_TOP_WIDTH), Math.max(d.getHeight(), DEFAULT_TOP_HEIGHT));
 
-		bot = new Rectangle2D.Double(bounds.getX(), bounds.getY()
-				+ top.getHeight(), bounds.getWidth(), bounds.getHeight()
-				- top.getHeight());
+		bot = new Rectangle2D.Double(bounds.getX(), bounds.getY() + top.getHeight(), bounds.getWidth(),
+				bounds.getHeight() - top.getHeight());
 	}
-	
-	/**
-	    Postavlja ime vrijednosti imovine.
-	    @param newValue je ime klase
-	*/
+
 	public void setName(String newValue) {
 		name = newValue;
 	}
 
-	/**
-	    Uzima ime vrijednosti imovine.
-	    @return vraæa ime klase
-    */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	    Postavlja sadržaj vrijednosti imovine.
-	    @param newValue je sadržaj ove klase
-    */
 	public void setContents(TextArea newValue) {
 		contents = newValue;
 	}
 
-	/**
-	    Uzima sadržaj vrijednosti imovine.
-	    @return vraæa sadržaj ove klase
-    */
 	public TextArea getContents() {
 		return contents;
 	}
@@ -148,19 +123,17 @@ public class PackageNode extends RectangularNode
 	}
 
 	public boolean addNode(Node n, Point2D p) {
-		if (n instanceof ClassNode || n instanceof InterfaceNode
-				|| n instanceof PackageNode) {
+		if (n instanceof ClassNode || n instanceof InterfaceNode || n instanceof PackageNode) {
 			addChild(n);
 			return true;
 		} else
 			return n instanceof NoteNode;
 	}
-	
-	public String toString()
-	{
+
+	public String toString() {
 		return "Package Node";
 	}
-	
+
 	private String name;
 	private TextArea contents;
 

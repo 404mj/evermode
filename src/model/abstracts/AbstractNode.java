@@ -11,13 +11,16 @@ import model.Diagram;
 import view.Grid;
 
 /**
-Klasa koja podr�ava implementaciju za vi�e metoda u Node(�vor) interfejsu.
-*/
+ * 在节点 （节点） 接口支持的几种方法实现的类。
+ * 
+ * 抽象类
+ * 
+ */
 public abstract class AbstractNode implements Node {
 
-/**
-    Konstrui�e �vor(node)bez roditelja ili djece.
- */
+	/**
+	 * 有没有父母或子女的构造的节点 （节点）。
+	 */
 	public AbstractNode() {
 		children = new ArrayList();
 		parent = null;
@@ -29,7 +32,7 @@ public abstract class AbstractNode implements Node {
 			cloned.children = new ArrayList(children.size());
 			for (int i = 0; i < children.size(); i++) {
 				Node n = (Node) children.get(i);
-			//	cloned.children.set(i, n.clone());
+				// cloned.children.set(i, n.clone());
 				cloned.children.add(n.clone());
 				n.setParent(cloned);
 			}
@@ -115,9 +118,10 @@ public abstract class AbstractNode implements Node {
 
 	private static final Color SHADOW_COLOR = Color.LIGHT_GRAY;
 	public static final int SHADOW_GAP = 4;
+
 	/**
-    @return vra�a oblik koji se koristi za obra�un sjenke
- */
+	 * @return 返回的格式用于阴影的计算
+	 */
 	public Shape getShape() {
 		return null;
 	}

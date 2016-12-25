@@ -6,34 +6,22 @@ import model.LineType;
 import model.abstracts.SegmentedEdge;
 
 /**
-	Ivica koja je oblikovana kao linija sa najvi�e 3 segmenta strelice.
-*/
-public class ClassRelationshipEdge extends SegmentedEdge 
-{
+ * 类之间关系的edge
+ */
+public class ClassRelationshipEdge extends SegmentedEdge {
 
 	/**
-    	Konstrui�e pravu ivicu.
-    */
-	public ClassRelationshipEdge() 
-	{
+	 * 构造 edge
+	 */
+	public ClassRelationshipEdge() {
 		lineType = LineType.STRAIGHT;
 	}
 
-	/**
-	    Postavlja posjed bentStyle-a (savijenog stila)
-	    @param newValue je bent style
-    */
-	public void setBentStyle(LineType newValue) 
-	{
+	public void setBentStyle(LineType newValue) {
 		lineType = newValue;
 	}
 
-	/**
-	    Uzima posjed bentStyle
-	    @return vra�a bent style
-    */
-	public LineType getBentStyle() 
-	{
+	public LineType getBentStyle() {
 		return lineType;
 	}
 
@@ -42,6 +30,5 @@ public class ClassRelationshipEdge extends SegmentedEdge
 	}
 
 	private LineType lineType;
-
 
 }

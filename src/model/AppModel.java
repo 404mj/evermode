@@ -11,6 +11,9 @@ import java.util.Observable;
 
 import javax.swing.tree.TreeNode;
 
+/*
+ * 被观察者
+ */
 public class AppModel extends Observable implements TreeNode {
 
 	private List<String> workspaceLocations;
@@ -19,7 +22,7 @@ public class AppModel extends Observable implements TreeNode {
 	private Point2D windowPosition;
 	private String localization;
 	private String theme;
-	private Diagram selectedDiagram;
+	private Diagram selectedDiagram;//当前选中的图类
 	private String selectedProject;
 	private String openedDiagram;
 	private List<ProjectModel> projectList;
@@ -87,7 +90,7 @@ public class AppModel extends Observable implements TreeNode {
 
 	public void setSelectedProject(String selectedProject2) {
 		this.selectedProject = selectedProject2;
-		setChanged();//先设置setChanged()才能通知
+		setChanged();// 先设置setChanged()才能通知
 		notifyViews();
 	}
 

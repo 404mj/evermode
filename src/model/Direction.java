@@ -3,17 +3,18 @@ package model;
 import java.awt.geom.Point2D;
 
 /**
-	Ova klasa opisuje pravac u 2D ravni. Pravac je vektor du�ine 1 sa uglom izme�u 0
-	(uklju�uju�i) i 360 stepeni (isklju�uju�i). Tako�e, postoji "izrod" pravac du�ine 0. 
-*/
-public class Direction 
-{
+ * 描述二维上的曲线
+ * 
+ * 是一个向量，长度为1，角度介于0-360
+ */
+public class Direction {
 
 	/**
-	    Konstrui�e pravac(normalizovan do du�ine 1).
-	    @param dx je x-vrijednost pravca
-	    @param dy je odgovaraju�a y-vrijednost pravca
-    */
+	 * 重建这个Direction。返回长度为1
+	 * 
+	 * @param dx
+	 * @param dy
+	 */
 	public Direction(double dx, double dy) {
 		x = dx;
 		y = dy;
@@ -25,44 +26,43 @@ public class Direction
 	}
 
 	/**
-	    Konstrui�e pravac izme�u 2 ta�ke.
-	    @param p je po�etna ta�ka
-	    @param q je krajnja ta�ka
-    */
-	public Direction(Point2D p, Point2D q) 
-	{
+	 * 两点之间构造路线！！！
+	 * 
+	 * @param p
+	 *            起始点
+	 * @param q
+	 *            结束点
+	 */
+	public Direction(Point2D p, Point2D q) {
 		this(q.getX() - p.getX(), q.getY() - p.getY());
 	}
 
-	
 	/**
-	    Pretvara ovaj pravac u ugao.
-	    @param angle je ugao u stepenima
-	*/
-	public Direction turn(double angle) 
-	{
+	 * 在角的地方转换线
+	 * 
+	 * @param angle
+	 *            以度为单位的角度
+	 */
+	public Direction turn(double angle) {
 		double a = Math.toRadians(angle);
-		return new Direction(x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a)
-				+ y * Math.cos(a));
+		return new Direction(x * Math.cos(a) - y * Math.sin(a), x * Math.sin(a) + y * Math.cos(a));
 	}
 
-	
 	/**
-	    Uzima x-komponentu ovog pravca
-	    @return vra�a x-komponentu (izme�u -1 i 1)
-    */
-	public double getX() 
-	{
+	 * 得到这个方向的X分量
+	 * 
+	 * @return
+	 */
+	public double getX() {
 		return x;
 	}
 
-	
 	/**
-	    Uzima y-komponentu ovog pravca
-	    @return vra�a y-komponentu (izme�u -1 i 1)
-    */
-	public double getY() 
-	{
+	 * 得到这个方向的Y分量
+	 * 
+	 * @return
+	 */
+	public double getY() {
 		return y;
 	}
 

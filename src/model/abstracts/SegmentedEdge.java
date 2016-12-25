@@ -17,13 +17,12 @@ import model.LineArrow;
 import model.LineStyle;
 
 /**
-	Ivica koja je sa�injena od vi�e linijskih segmenata.
-*/
-public abstract class SegmentedEdge extends ShapeEdge 
-{
+ * 多个线段的边缘
+ */
+public abstract class SegmentedEdge extends ShapeEdge {
 	/**
-    	Konstrui�e ivicu bez ikakvih ukrasa.
-    */
+	 * 构造边缘，无参数
+	 */
 	public SegmentedEdge() {
 		lineStyle = LineStyle.SOLID;
 		startArrowHead = LineArrow.NONE;
@@ -34,105 +33,76 @@ public abstract class SegmentedEdge extends ShapeEdge
 	}
 
 	/**
-	    Postavlja osobinu stila linije.
-	    @param newValue je nova vrijednost.
-    */
+	 * 设置功能线条的样式
+	 * 
+	 * @param newValue
+	 */
 	public void setLineStyle(LineStyle newValue) {
 		lineStyle = newValue;
 	}
 
-	/**
-	    Uzima osobinu stila linije.
-	    @return vra�a stil linije
-    */
 	public LineStyle getLineStyle() {
 		return lineStyle;
 	}
 
 	/**
-	    Postavlja po�etak strelice.
-	    @param newValue je nova vrijednost
-    */
+	 * 设置起始箭头
+	 * 
+	 * @param newValue
+	 */
 	public void setStartArrowHead(LineArrow newValue) {
 		startArrowHead = newValue;
 	}
 
 	/**
-	    Uzima posjed po�etka strelice.
-	    @return vra�a stil po�etka strelice
-    */
+	 * @return
+	 */
 	public LineArrow getStartArrowHead() {
 		return startArrowHead;
 	}
 
-	/**
-    	Postavlja kraj posjeda strelice.
-    	@param newValue je nova vrijednost
-	 */
 	public void setEndArrowHead(LineArrow newValue) {
 		endArrowHead = newValue;
 	}
 
-	/**
-    	Uzima posjed kraja strelice.
-    	@return vra�a stil kraja strelice
-   */
 	public LineArrow getEndArrowHead() {
 		return endArrowHead;
 	}
 
 	/**
-    	Postavlja posjed po�etne etikete(labele).
-    	@param newValue je nova vrijednost
-    */
+	 * 设置标签的起始
+	 */
 	public void setStartLabel(String newValue) {
 		startLabel = newValue;
 	}
 
-	 /**
-    	Uzima posjed po�etne etikete.
-    	@return vra�a etiketu sa po�etka ivice
-    */
+	/**
+	 */
 	public String getStartLabel() {
 		return startLabel;
 	}
 
 	/**
-    	Postavlja posjed srednje etikete.
-    	@param newValue je nova vrijednost
-    */
+	 * 设置中标签
+	 * 
+	 * @param newValue
+	 */
 	public void setMiddleLabel(String newValue) {
 		middleLabel = newValue;
 	}
 
-	/**
-    	Uzima posjed srednje etikete.
-    	@return vra�a etiketu sa sredine ivice
-	 */
 	public String getMiddleLabel() {
 		return middleLabel;
 	}
 
-	/**
-    	Postavlja posjed krajnje etikete (labele).
-    	@param newValue je nova vrijednost
-    */
 	public void setEndLabel(String newValue) {
 		endLabel = newValue;
 	}
 
-	/**
-    	Uzima posjed krajnje labele-etikete.
-    	@return vra�a etiketu sa kraja ivice
-    */
 	public String getEndLabel() {
 		return endLabel;
 	}
 
-	/**
-    	Crtanje ivice.
-    	@param g2 je grafi�ki sadr�aj
-    */
 	public void draw(Graphics2D g2) {
 		ArrayList points = getPoints();
 
@@ -140,31 +110,31 @@ public abstract class SegmentedEdge extends ShapeEdge
 		g2.setStroke(lineStyle.getStroke());
 		g2.draw(getSegmentPath());
 		g2.setStroke(oldStroke);
-		startArrowHead.draw(g2, (Point2D) points.get(1),
-				(Point2D) points.get(0));
-		endArrowHead.draw(g2, (Point2D) points.get(points.size() - 2),
-				(Point2D) points.get(points.size() - 1));
+		startArrowHead.draw(g2, (Point2D) points.get(1), (Point2D) points.get(0));
+		endArrowHead.draw(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1));
 
-		drawString(g2, (Point2D) points.get(1), (Point2D) points.get(0),
-				startArrowHead, startLabel, false);
-		drawString(g2, (Point2D) points.get(points.size() / 2 - 1),
-				(Point2D) points.get(points.size() / 2), null, middleLabel,
-				true);
-		drawString(g2, (Point2D) points.get(points.size() - 2),
-				(Point2D) points.get(points.size() - 1), endArrowHead,
+		drawString(g2, (Point2D) points.get(1), (Point2D) points.get(0), startArrowHead, startLabel, false);
+		drawString(g2, (Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2), null,
+				middleLabel, true);
+		drawString(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1), endArrowHead,
 				endLabel, false);
 	}
 
 	/**
-    	Crtanje stringa.
-    	@param g2 je grafi�ki sadr�aj
-    	@param p je krajnja ta�ka segmenta du� koga se crta string
-    	@param q je druga krajnja ta�ka segmenta du� koga se crta string
-    	@param s je string koji se crta
-    	@param center ima vrijednost true ako je string centriran du� segmenta
+	 * 绘制字符串
+	 * 
+	 * @param g2
+	 *            图形内容
+	 * @param p
+	 *            结束点
+	 * @param q
+	 *            第二个结束点
+	 * @param s
+	 *            要删除的字符串
+	 * @param center
+	 *            是否沿段中心
 	 */
-	private static void drawString(Graphics2D g2, Point2D p, Point2D q,
-			LineArrow arrow, String s, boolean center) {
+	private static void drawString(Graphics2D g2, Point2D p, Point2D q, LineArrow arrow, String s, boolean center) {
 		if (s == null || s.length() == 0)
 			return;
 		label.setText("<html>" + s + "</html>");
@@ -185,16 +155,22 @@ public abstract class SegmentedEdge extends ShapeEdge
 	}
 
 	/**
-	    Izra�unava ta�ku vezivanja za crtanje stringa.
-	    @param g2 je grafi�ki sadr�aj
-	    @param p je krajnja ta�ka segmenta du� koga se crta string
-	    @param q je druga krajnja ta�ka segmenta du� koga se crta string
-	    @param b su granice stringa koji se crta
-	    @param center ima vrijednost true ako je string centriran du� segmenta
-	    @return vra�a ta�ku na kojoj se crta string
-    */
-	private static Point2D getAttachmentPoint(Graphics2D g2, Point2D p,
-			Point2D q, LineArrow arrow, Dimension d, boolean center) {
+	 * 计算画字符串上依附的点
+	 * 
+	 * @param g2
+	 *            图像内容
+	 * @param p
+	 *            结束点
+	 * @param q
+	 *            第二个结束点
+	 * @param b
+	 *            要删除的string的bnounds
+	 * @param center
+	 *            是否在segment的中心
+	 * @return 返回line string的位置
+	 */
+	private static Point2D getAttachmentPoint(Graphics2D g2, Point2D p, Point2D q, LineArrow arrow, Dimension d,
+			boolean center) {
 		final int GAP = 3;
 		double xoff = GAP;
 		double yoff = -GAP - d.getHeight();
@@ -203,8 +179,7 @@ public abstract class SegmentedEdge extends ShapeEdge
 			if (p.getX() > q.getX()) {
 				return getAttachmentPoint(g2, q, p, arrow, d, center);
 			}
-			attach = new Point2D.Double((p.getX() + q.getX()) / 2,
-					(p.getY() + q.getY()) / 2);
+			attach = new Point2D.Double((p.getX() + q.getX()) / 2, (p.getY() + q.getY()) / 2);
 			if (p.getY() < q.getY())
 				yoff = -GAP - d.getHeight();
 			else if (p.getY() == q.getY())
@@ -230,18 +205,17 @@ public abstract class SegmentedEdge extends ShapeEdge
 		return new Point2D.Double(attach.getX() + xoff, attach.getY() + yoff);
 	}
 
-
 	/**
-	    Izra�unava obim stringa koji je nacrtan du� segmenta.
-	    @param g2 je grafi�ki sadr�aj
-    	@param p je krajnja ta�ka segmenta du� koga se crta string
-    	@param q je druga krajnja ta�ka segmenta du� koga se crta string
-	    @param s je string za crtanje
-	    @param center ima vrijednost true ako je string centriran du� segmenta
-	    @return vra�a pravougaonik koji zatvara string
-    */
-	private static Rectangle2D getStringBounds(Graphics2D g2, Point2D p,
-			Point2D q, LineArrow arrow, String s, boolean center) {
+	 * 计算沿区段抽取字符串的边界
+	 * 
+	 * @param g2
+	 * @param p
+	 * @param q
+	 * @param s
+	 * @param center
+	 */
+	private static Rectangle2D getStringBounds(Graphics2D g2, Point2D p, Point2D q, LineArrow arrow, String s,
+			boolean center) {
 		if (g2 == null)
 			return new Rectangle2D.Double();
 		if (s == null || s.equals(""))
@@ -250,32 +224,27 @@ public abstract class SegmentedEdge extends ShapeEdge
 		label.setFont(g2.getFont());
 		Dimension d = label.getPreferredSize();
 		Point2D a = getAttachmentPoint(g2, p, q, arrow, d, center);
-		return new Rectangle2D.Double(a.getX(), a.getY(), d.getWidth(),
-				d.getHeight());
+		return new Rectangle2D.Double(a.getX(), a.getY(), d.getWidth(), d.getHeight());
 	}
 
 	public Rectangle2D getBounds(Graphics2D g2) {
 		ArrayList points = getPoints();
 		Rectangle2D r = super.getBounds(g2);
-		r.add(getStringBounds(g2, (Point2D) points.get(1),
-				(Point2D) points.get(0), startArrowHead, startLabel, false));
-		r.add(getStringBounds(g2, (Point2D) points.get(points.size() / 2 - 1),
-				(Point2D) points.get(points.size() / 2), null, middleLabel,
-				true));
-		r.add(getStringBounds(g2, (Point2D) points.get(points.size() - 2),
-				(Point2D) points.get(points.size() - 1), endArrowHead,
-				endLabel, false));
+		r.add(getStringBounds(g2, (Point2D) points.get(1), (Point2D) points.get(0), startArrowHead, startLabel, false));
+		r.add(getStringBounds(g2, (Point2D) points.get(points.size() / 2 - 1), (Point2D) points.get(points.size() / 2),
+				null, middleLabel, true));
+		r.add(getStringBounds(g2, (Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1),
+				endArrowHead, endLabel, false));
 		return r;
 	}
 
 	public Shape getShape() {
 		GeneralPath path = getSegmentPath();
 		ArrayList points = getPoints();
-		path.append(startArrowHead.getPath((Point2D) points.get(1),
-				(Point2D) points.get(0)), false);
-		path.append(endArrowHead.getPath(
-				(Point2D) points.get(points.size() - 2),
-				(Point2D) points.get(points.size() - 1)), false);
+		path.append(startArrowHead.getPath((Point2D) points.get(1), (Point2D) points.get(0)), false);
+		path.append(
+				endArrowHead.getPath((Point2D) points.get(points.size() - 2), (Point2D) points.get(points.size() - 1)),
+				false);
 		return path;
 	}
 
@@ -294,14 +263,12 @@ public abstract class SegmentedEdge extends ShapeEdge
 
 	public Line2D getConnectionPoints() {
 		ArrayList points = getPoints();
-		return new Line2D.Double((Point2D) points.get(0),
-				(Point2D) points.get(points.size() - 1));
+		return new Line2D.Double((Point2D) points.get(0), (Point2D) points.get(points.size() - 1));
 	}
 
-	 /**
-	    Dobija ta�ke uglova(�o�kove) ove segmentne ivice linije.
-	    @return vra�a niz objekata iz Point2D koji sadr�e ta�ke uglova.
-    */
+	/**
+	 * 获取边缘线段的点
+	 */
 	public abstract ArrayList getPoints();
 
 	private LineStyle lineStyle;

@@ -2,5 +2,7 @@ eclipse.preferences.version=1
 encoding//src/controller/MenuBarController.java=UTF-8
 encoding//src/helpers/CutCopyPaste.java=UTF-8
 encoding//src/model/Diagram.java=UTF-8
+encoding//src/model/abstracts/Node.java=UTF-8
+encoding//src/view/Grid.java=UTF-8
 encoding//src/view/StatusBar.java=UTF-8
 encoding//src/view/WorkspaceLauncher.java=UTF-8

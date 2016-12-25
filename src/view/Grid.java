@@ -8,37 +8,34 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
-	Koordinatna mre�a na koju ta�ke i pravougaonici mogu biti odvu�eni. Opcija odvla�enja
-	pomjera ta�u do najbli�e koordinatne ta�ke.
-*/
-public class Grid
-{
+ * 关于这点和矩形可以绘制的网格。
+ */
+public class Grid {
 
 	/**
-    	Konstrui�e re�etku bez po�etnih ta�aka (0,0).
-    */
-	public Grid() 
-	{
+	 * 构建一个网格无初始点 (0，0)。
+	 */
+	public Grid() {
 		setGrid(0, 0);
 	}
 
 	/**
-	    Postavlja koordinate u x i y pravcima.
-	    @param x je ta�ka na x-osi
-	    @param y je ta�ka na y-osi
-    */
+	 * 设置的坐标中的 x 和 y 方向。
+	 */
 	public void setGrid(double x, double y) {
 		gridx = x;
 		gridy = y;
 	}
 
 	/**
-	    Iscrtava ovu re�etku unutar pravougaonika.
-	    @param g2 je grafi�ki sadr�aj
-	    @param bounds je oivi�eni pravougaonik
-    */
-	public void draw(Graphics2D g2, Rectangle2D bounds) 
-	{
+	 * 这画在矩形网格
+	 * 
+	 * @param g2
+	 *            图像内容
+	 * @param bounds
+	 *            边界有 空心矩形
+	 */
+	public void draw(Graphics2D g2, Rectangle2D bounds) {
 		Color PALE_BLUE = new Color(0.9F, 0.8F, 0.9F);
 		Color oldColor = g2.getColor();
 		g2.setColor(PALE_BLUE);
@@ -52,9 +49,10 @@ public class Grid
 	}
 
 	/**
-	    Povla�i ta�ku d najbli�e koordinate.
-	    @param p je ta�ka za povla�enje. 
-    */
+	 * 检索到 d 点坐标
+	 * 
+	 * @param p
+	 */
 	public void snap(Point2D p) {
 		double x;
 		if (gridx == 0)
@@ -71,30 +69,21 @@ public class Grid
 	}
 
 	/**
-	    Povla�i pravoguoanik do najbli�ih koordinatnih ta�aka.
-	    @param r je pravougaonik za povla�enje
-	*/
+	 * 检索最近的网格点
+	 * 
+	 * @param r
+	 */
 	public void snap(Rectangle2D r) {
-	/*	double x;
-		double w;
-		if (gridx == 0) {
-			x = r.getX();
-			w = r.getWidth();
-		} else {
-			x = Math.round(r.getX() / gridx) * gridx;
-			w = Math.ceil(r.getWidth() / (2 * gridx)) * (2 * gridx);
-		}
-		double y;
-		double h;
-		if (gridy == 0) {
-			y = r.getY();
-			h = r.getHeight();
-		} else {
-			y = Math.round(r.getY() / gridy) * gridy;
-			h = Math.ceil(r.getHeight() / (2 * gridy)) * (2 * gridy);
-		}
-
-		r.setFrame(x, y, w, h);*/
+		/*
+		 * double x; double w; if (gridx == 0) { x = r.getX(); w = r.getWidth();
+		 * } else { x = Math.round(r.getX() / gridx) * gridx; w =
+		 * Math.ceil(r.getWidth() / (2 * gridx)) * (2 * gridx); } double y;
+		 * double h; if (gridy == 0) { y = r.getY(); h = r.getHeight(); } else {
+		 * y = Math.round(r.getY() / gridy) * gridy; h = Math.ceil(r.getHeight()
+		 * / (2 * gridy)) * (2 * gridy); }
+		 * 
+		 * r.setFrame(x, y, w, h);
+		 */
 	}
 
 	private double gridx;

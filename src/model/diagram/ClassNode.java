@@ -12,14 +12,13 @@ import view.Grid;
 import view.property.TextArea;
 
 /**
-	Klasa èvor je klasni dijagram.
-*/
-public class ClassNode extends RectangularNode 
-{
+ * UML ä¸­çš„ç±»å›¾å…ƒ
+ */
+public class ClassNode extends RectangularNode {
 
 	/**
-    	Konstruiše klasu èvor uobièajene velièine.
-   */
+	 * 
+	 */
 	public ClassNode() {
 		name = new TextArea();
 		name.setSize(TextArea.LARGE);
@@ -34,24 +33,20 @@ public class ClassNode extends RectangularNode
 
 	public void draw(Graphics2D g2) {
 		super.draw(g2);
-		Rectangle2D top = new Rectangle2D.Double(getBounds().getX(),
-				getBounds().getY(), getBounds().getWidth(), getBounds()
-						.getHeight() - midHeight - botHeight);
+		Rectangle2D top = new Rectangle2D.Double(getBounds().getX(), getBounds().getY(), getBounds().getWidth(),
+				getBounds().getHeight() - midHeight - botHeight);
 		g2.draw(top);
 		name.draw(g2, top);
-		Rectangle2D mid = new Rectangle2D.Double(top.getX(), top.getMaxY(),
-				top.getWidth(), midHeight);
+		Rectangle2D mid = new Rectangle2D.Double(top.getX(), top.getMaxY(), top.getWidth(), midHeight);
 		g2.draw(mid);
 		attributes.draw(g2, mid);
-		Rectangle2D bot = new Rectangle2D.Double(top.getX(), mid.getMaxY(),
-				top.getWidth(), botHeight);
+		Rectangle2D bot = new Rectangle2D.Double(top.getX(), mid.getMaxY(), top.getWidth(), botHeight);
 		g2.draw(bot);
 		methods.draw(g2, bot);
 	}
 
 	public void layout(Diagram g, Graphics2D g2, Grid grid) {
-		Rectangle2D min = new Rectangle2D.Double(0, 0, DEFAULT_WIDTH,
-				DEFAULT_COMPARTMENT_HEIGHT);
+		Rectangle2D min = new Rectangle2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_COMPARTMENT_HEIGHT);
 		Rectangle2D top = name.getBounds(g2);
 		top.add(min);
 		Rectangle2D mid = attributes.getBounds(g2);
@@ -59,17 +54,15 @@ public class ClassNode extends RectangularNode
 
 		midHeight = mid.getHeight();
 		botHeight = bot.getHeight();
-	
+
 		mid.add(min);
 		bot.add(min);
 		midHeight = mid.getHeight();
 		botHeight = bot.getHeight();
-		
 
-		Rectangle2D b = new Rectangle2D.Double(getBounds().getX(), getBounds()
-				.getY(), Math.max(top.getWidth(),
-				Math.max(mid.getWidth(), bot.getWidth())), top.getHeight()
-				+ midHeight + botHeight);
+		Rectangle2D b = new Rectangle2D.Double(getBounds().getX(), getBounds().getY(),
+				Math.max(top.getWidth(), Math.max(mid.getWidth(), bot.getWidth())),
+				top.getHeight() + midHeight + botHeight);
 		grid.snap(b);
 		setBounds(b);
 	}
@@ -78,50 +71,26 @@ public class ClassNode extends RectangularNode
 		return n instanceof PointNode;
 	}
 
-	/**
-	    Postavlja ime imovinske vrijednosti..
-	    @param newValue je ime klase
-    */
 	public void setName(TextArea newValue) {
 		name = newValue;
 	}
 
-	/**
-	    Uzima ime imovinske vrijednosti.
-	    @return vraæa ime klase
-    */
 	public TextArea getName() {
 		return name;
 	}
 
-	/**
-	    Postavlja atribute imovinske vrijednosti.
-	    @param newValue su atributi ove klase
-    */
 	public void setAttributes(TextArea newValue) {
 		attributes = newValue;
 	}
 
-	/**
-	    Uzima atribute imovinske vrijednosti.
-	    @return vraæa atribute ove klase
-    */
 	public TextArea getAttributes() {
 		return attributes;
 	}
 
-	/**
-	    Postavlja metode imovinske vrijednosti.
-	    @param newValue su metode ove klase
-    */
 	public void setMethods(TextArea newValue) {
 		methods = newValue;
 	}
 
-	/**
-	    Uzima metode imovinske vrijednosti.
-	    @return vraæa metode ove klase
-    */
 	public TextArea getMethods() {
 		return methods;
 	}
@@ -133,9 +102,8 @@ public class ClassNode extends RectangularNode
 		cloned.attributes = (TextArea) attributes.clone();
 		return cloned;
 	}
-	
-	public String toString()
-	{
+
+	public String toString() {
 		return "Class Node";
 	}
 

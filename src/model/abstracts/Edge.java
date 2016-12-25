@@ -1,61 +1,68 @@
 package model.abstracts;
-/**
- Klasa koja poziva metode iz apstraktne klase AbstractEdge.
-*/
+
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+
 /**
- Ivica u dijagramu.
-*/
+ * å›¾åƒä¸­çš„è¾¹
+ * 
+ * åœ¨AbstractEdgeä¸­è°ƒç”¨
+ * 
+ * æ¥å£
+ */
 public interface Edge extends Serializable, Cloneable {
 	/**
-     Iscrtavanje ivice.
-    */
+	 * ç»˜åˆ¶è¾¹æ¡†
+	 */
 	void draw(Graphics2D g2);
-	 /**
-      Testiranje da li ivica sadri taèku.
-      @param aPoint imenuje taèku za testiranje.
-      @return vraæa vrijednost true (istina) ako ivica sadri taèku(aPoint).
-     */
-	boolean contains(Point2D aPoint);
+
 	/**
-	    Povezivanje ove ivice na 2 èvora.
-	    @param aStart poèetni èvor
-	    @param anEnd završni èvor
+	 * æ˜¯å¦åŒ…å«æŒ‡å®šç‚¹
+	 * 
+	 * @param aPoint
+	 * 
+	 * @return
+	 */
+	boolean contains(Point2D aPoint);
+
+	/**
+	 * é“¾æ¥ä¸¤ä¸ªè¾¹ç¼˜èŠ‚ç‚¹
+	 * 
+	 * @param aStart
+	 * @param anEnd
 	 */
 	void connect(Node aStart, Node anEnd);
-	
+
 	/**
-	    Uzima poèetni èvor.
-	    @return vraæa poèetni èvor
-	  */
+	 * @return
+	 */
 	Node getStart();
-	
+
 	/**
-	    Uzima završni èvor.
-	    @return vraæa završni èvor
+	 * @return
 	 */
 	Node getEnd();
-	
+
 	/**
-	    Uzima taèke koje su definisane kao èvorovi ove ivice. 
-	    @return vraæa liniju, tj. spaja 2 prikljuèene taèke linijom a
+	 * è·å¾—å®šä¹‰ä¸ºæ­¤è¾¹ç¼˜ä¸Šçš„èŠ‚ç‚¹
+	 * 
+	 * @return
 	 */
 	Line2D getConnectionPoints();
 
 	/**
-	    Dobija najmanji prvaougaonik koji ogranièava ovu ivicu.
-	    Ogranièeni prvaougaonik sadri sve labele.
-	    @return vraæa ogranièeni pravougaonik.
+	 * è·å–Edgeå‘¨å›´çš„è¾¹
+	 * 
+	 * @return ä¸€ä¸ªå®šä¹‰å¥½çš„ä¸¾è¡Œ
 	 */
 	Rectangle2D getBounds(Graphics2D g2);
 
 	Object clone();
 
 	public String getName();
-	
+
 	public void setName(String name);
 }

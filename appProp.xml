@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window>
-  <dimension h="754.0" w="1370.0"/>
-  <position x="-5.0" y="7.0"/>
+  <dimension h="754.0" w="1260.0"/>
+  <position x="285.0" y="184.0"/>
   <localization value="en"/>
   <theme value="javax.swing.plaf.metal.MetalLookAndFeel"/>
-  <openedWorkspace loc="C:\Users\Milos\Evermode\Default Workspace"/>
-  <workspace loc="C:\Users\Milos\Evermode\Default Workspace">
-    <selectedDiagram name="C:\Users\Milos\Evermode\Default Workspace/fsdfsa\fafsd.xml"/>
-    <selectedProject name="C:\Users\Milos\Evermode\Default Workspace/fsdfsa"/>
+  <openedWorkspace loc="/home/zsx/tmp"/>
+  <workspace loc="/home/zsx/tmp">
+    <selectedDiagram name="/home/zsx/tmp/zsxtest\zsx.xml"/>
+    <selectedProject name="/home/zsx/tmp/zsxtest"/>
     <openedDiagrams>
-      <diagram name="C:\Users\Milos\Evermode\Default Workspace/fsdfsa\fafsd.xml"/>
+      <diagram name="/home/zsx/tmp/zsxtest\zsx.xml"/>
     </openedDiagrams>
-    <project name="C:\Users\Milos\Evermode\Default Workspace/fsdfsa">
-      <diagram name="C:\Users\Milos\Evermode\Default Workspace/fsdfsa\fafsd.xml"/>
+    <project name="/home/zsx/tmp/zsxtest">
+      <diagram name="/home/zsx/tmp/zsxtest\zsx.xml"/>
     </project>
   </workspace>
 </window>
