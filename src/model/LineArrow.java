@@ -6,18 +6,15 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
 /**
-	Ova klasa definiše strelice razlièitih oblika.
-*/
-public class LineArrow 
-{
-	private LineArrow() {}
+ * å®šä¹‰ä¸åŒçš„ç®­å¤´
+ */
+public class LineArrow {
+	private LineArrow() {
+	}
 
 	/**
-	    Iscrtava strelice.
-	    @param g2 je grafièki sadraj
-	    @param p je taèka na osi strelice
-	    @param q je krajnja taèka strelice
-    */
+	 * Draw arrows
+	 */
 	public void draw(Graphics2D g2, Point2D p, Point2D q) {
 		GeneralPath path = getPath(p, q);
 		Color oldColor = g2.getColor();
@@ -31,11 +28,11 @@ public class LineArrow
 	}
 
 	/**
-	    Uzima putanju strelice.
-	    @param p je taèka na osi strelice
-	    @param q je krajnja taèka strelice
-	    @return vraæa putanju
-    */
+	 * å¾—åˆ°ç®­å¤´çš„è·¯å¾„
+	 * 
+	 * @param p
+	 * @param q
+	 */
 	public GeneralPath getPath(Point2D p, Point2D q) {
 		GeneralPath path = new GeneralPath();
 		if (this == NONE)
@@ -53,18 +50,13 @@ public class LineArrow
 
 		path.moveTo((float) q.getX(), (float) q.getY());
 		path.lineTo((float) x1, (float) y1);
-		if (this == V) 
-		{
+		if (this == V) {
 			path.moveTo((float) x2, (float) y2);
 			path.lineTo((float) q.getX(), (float) q.getY());
-		}
-		else if (this == TRIANGLE || this == BLACK_TRIANGLE) 
-		{
+		} else if (this == TRIANGLE || this == BLACK_TRIANGLE) {
 			path.lineTo((float) x2, (float) y2);
 			path.closePath();
-		} 
-		else if (this == DIAMOND || this == BLACK_DIAMOND) 
-		{
+		} else if (this == DIAMOND || this == BLACK_DIAMOND) {
 			double x3 = x2 - ARROW_LENGTH * Math.cos(angle + ARROW_ANGLE);
 			double y3 = y2 - ARROW_LENGTH * Math.sin(angle + ARROW_ANGLE);
 			path.lineTo((float) x3, (float) y3);

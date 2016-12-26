@@ -18,6 +18,8 @@ import model.LineStyle;
 
 /**
  * 多个线段的边缘
+ * 
+ * 关系连线的设置
  */
 public abstract class SegmentedEdge extends ShapeEdge {
 	/**

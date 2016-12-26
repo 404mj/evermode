@@ -7,17 +7,14 @@ import java.awt.geom.Rectangle2D;
 import model.abstracts.AbstractNode;
 
 /**
-	Nevidljivi �vor koji je kori�ten u paleti za crtanje ivice
-	a u bilje�kama slu�i kao krajnja ta�ka �vora konektora. 
-*/
-public class PointNode extends AbstractNode 
-{
+ * 在绘制Edge的时候不可见的点，帮助连线
+ */
+public class PointNode extends AbstractNode {
 
 	/**
-    	Konstrui�e ta�ku �vora sa koordinatama (0, 0)
-    */
-	public PointNode() 
-	{
+	 * 构建点坐标
+	 */
+	public PointNode() {
 		point = new Point2D.Double();
 	}
 

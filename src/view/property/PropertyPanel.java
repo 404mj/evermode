@@ -10,24 +10,16 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /**
-	Komponenta ispunjena editorima za sve osobine ureðivanja nekog objekta.
-*/
-public class PropertyPanel extends JPanel 
-{
+ * ç»„ä»¶å±žæ€§ç¼–è¾‘å™¨
+ */
+public class PropertyPanel extends JPanel {
 
 	@SuppressWarnings("unchecked")
-	/**
-	    Konstruiše osobine lista koji pokazuje sposobnost ureðivanja zadatog objekta.
-	    @param object je objekat èije osobine se edituju
-	    @param parent je roditeljska komponenta
-    */
-	public PropertyPanel(Object bean, Component parent) 
-	{
+	public PropertyPanel(Object bean, Component parent) {
 		this.parent = parent;
 		try {
 			BeanInfo info = Introspector.getBeanInfo(bean.getClass());
-			PropertyDescriptor[] descriptors = (PropertyDescriptor[]) info
-					.getPropertyDescriptors().clone();
+			PropertyDescriptor[] descriptors = (PropertyDescriptor[]) info.getPropertyDescriptors().clone();
 			Arrays.sort(descriptors, new Comparator() {
 				public int compare(Object o1, Object o2) {
 					PropertyDescriptor d1 = (PropertyDescriptor) o1;
@@ -57,18 +49,18 @@ public class PropertyPanel extends JPanel
 	}
 
 	/**
-	    Dobija osobine editora za dati posjed i povezuje ih tako da ažurira
-	    dati objekat.
-	    @param bean je objekat èije osobine se edituju(ureðuju)
-	    @param descriptor je indentifikator posjeda koji se edituje
-	    @return vraæa svojstvo editora koji ureðuje poduèje sa datim identifikatorom
-	    i ažurira dati objekat
-	*/
-	public PropertyEditor getEditor(final Object bean,
-			PropertyDescriptor descriptor) 
-	{
-		try 
-		{
+	 * Receives features editor for a given property and connects them so that
+	 * updated given object.
+	 * 
+	 * @param bean
+	 *            is an object whose properties can edit (regulating)
+	 * @param identifier
+	 *            descriptor is the property to be edited
+	 * @return returns the property editor, which regulates poduÃ¨je with the
+	 *         given and updates the given object
+	 */
+	public PropertyEditor getEditor(final Object bean, PropertyDescriptor descriptor) {
+		try {
 			Method getter = descriptor.getReadMethod();
 			if (getter == null)
 				return null;
@@ -115,11 +107,7 @@ public class PropertyPanel extends JPanel
 	}
 
 	/**
-	    Obuhvata podruèje izmjene u komponentu.
-	    @param editor je editor koji se obuhvata
-	    @return vraæa dugme (ako je naruèeni editor), kombinovani okvir (ako editor ima oznake),
-	    ili tekstualno polje (u drugom sluèaju)
-	*/   
+	 */
 	public Component getEditorComponent(final PropertyEditor editor) {
 		String[] tags = editor.getTags();
 		String text = editor.getAsText();
@@ -161,10 +149,9 @@ public class PropertyPanel extends JPanel
 	}
 
 	/**
-	    Formatira tekst za dugme da otvara preporuèeni editor.
-	    @param text je svojstvena vrijednost kao tekst
-	    @return vraæa tekst koji se stavlja na dugme
-    */
+	 * 
+	 * @param text
+	 */
 	private static String buttonText(String text) {
 		if (text == null || text.equals(""))
 			return " ";
@@ -173,18 +160,17 @@ public class PropertyPanel extends JPanel
 		return text;
 	}
 
-	 /**
-	    Dodaje promjene listener-a(osluškivaèa) na listu listenera(osluškivaèa).
-	    @param listener je osluškivaè koji se dodaje
-     */
+	/**
+	 * @param listener
+	 */
 	public void addChangeListener(ChangeListener listener) {
 		changeListeners.add(listener);
 	}
 
 	/**
-	    Obavještava sve osluškivaèe o promijenjenom stanju.
-	    @param event je dogaðaj za osluškivanje
-    */
+	 * 
+	 * @param event
+	 */
 	private void fireStateChanged(ChangeEvent event) {
 		for (int i = 0; i < changeListeners.size(); i++) {
 			ChangeListener listener = (ChangeListener) changeListeners.get(i);

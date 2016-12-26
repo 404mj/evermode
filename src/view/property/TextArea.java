@@ -11,86 +11,54 @@ import java.util.StringTokenizer;
 import javax.swing.JLabel;
 
 /**
-	String koji moe se moe proširiti sa više linija.
-*/
-public class TextArea implements Cloneable, Serializable 
-{
+ * å­—ç¬¦ä¸²å¯ä»¥ä¸å¤šæ¡çº¿è·¯è¿›è¡Œæ‹“å±•
+ */
+public class TextArea implements Cloneable, Serializable {
 
-	/**
-	    Konstruiše prazan, centriran, normalne velièine višelinijski string, koji nije podvuèen.
-    */
-	public TextArea() 
-	{
+	public TextArea() {
 		text = "";
 		justification = CENTER;
 		size = NORMAL;
 		underlined = false;
 	}
 
-	/**
-	    Postavlja vrijednost tekstualnog podruèja.
-	    @param newValue je text višelinijskog stringa
-    */
 	public void setText(String newValue) {
 		text = newValue;
 		setLabelText();
 	}
 
-	/**
-	    Uzima vrijednoost tekstualnog podruèja.
-	    @return vraæa tekst višelinijskog stringa
-    */
 	public String getText() {
 		return text;
 	}
 
 	/**
-	    Postavlja vrijednost poravnatog podruèja.
-	    @param newValue je poravnanje (justification), jedno od moguæih LEFT, CENTER, RIGHT
-    */
+	 * è®¾ç½®å¯¹å‡†åŒºåŸŸçš„å€¼
+	 * 
+	 * @param newValue
+	 */
 	public void setJustification(int newValue) {
 		justification = newValue;
 		setLabelText();
 	}
 
-	/**
-	    Uzima vrijednost poravnatog podruèja.
-	    @return vraæa poravnanje, jedno od moguæih LEFT, CENTER, RIGHT
-    */
 	public int getJustification() {
 		return justification;
 	}
 
-	/**
-	    Uzima vrijednost podvuèenog podruèja.
-	    @return vraæa true ako e tekst podvuèen
-    */
 	public boolean isUnderlined() {
 		return underlined;
 	}
 
-	/**
-	    Uzima vrijednost podvuèenog podruèja.
-	    @param newValue je podvuèeni tekst
-    */
 	public void setUnderlined(boolean newValue) {
 		underlined = newValue;
 		setLabelText();
 	}
 
-	/**
-	    Postavlja vrijednost velièine imovine.
-	    @param newValue je velièina, jedna od moguæih: SMALL, NORMAL, LARGE
-    */
 	public void setSize(int newValue) {
 		size = newValue;
 		setLabelText();
 	}
 
-	/**
-	    Uzima vrijednost velièine imovine.
-	    @return vraæa velièinu, jedna od moguæih: SMALL, NORMAL, LARGE
-   */
 	public int getSize() {
 		return size;
 	}
@@ -134,18 +102,14 @@ public class TextArea implements Cloneable, Serializable
 		// replace any < that are not followed by {u, i, b, tt, font, br} with
 		// &lt;
 
-		List dontReplace = Arrays.asList(new String[] { "u", "i", "b", "tt",
-				"font", "br" });
+		List dontReplace = Arrays.asList(new String[] { "u", "i", "b", "tt", "font", "br" });
 
 		int ltpos = 0;
 		while (ltpos != -1) {
 			ltpos = htmlText.indexOf("<", ltpos + 1);
-			if (ltpos != -1
-					&& !(ltpos + 1 < htmlText.length() && htmlText
-							.charAt(ltpos + 1) == '/')) {
+			if (ltpos != -1 && !(ltpos + 1 < htmlText.length() && htmlText.charAt(ltpos + 1) == '/')) {
 				int end = ltpos + 1;
-				while (end < htmlText.length()
-						&& Character.isLetter(htmlText.charAt(end)))
+				while (end < htmlText.length() && Character.isLetter(htmlText.charAt(end)))
 					end++;
 				if (!dontReplace.contains(htmlText.substring(ltpos + 1, end)))
 					htmlText.replace(ltpos, ltpos + 1, "&lt;");
@@ -162,10 +126,7 @@ public class TextArea implements Cloneable, Serializable
 	}
 
 	/**
-	    Uzima ogranièeni pravougaonik za ovaj višelinijski string.
-	    @param g2 je grafièki sadraj
-	    @return vraæa ogranièeni pravougaonik (sa koordinatama gornjeg lijevog ugla (0,0))
-    */
+	 */
 	public Rectangle2D getBounds(Graphics2D g2) {
 		if (text.trim().length() == 0)
 			return new Rectangle2D.Double();
@@ -174,12 +135,8 @@ public class TextArea implements Cloneable, Serializable
 		return new Rectangle2D.Double(0, 0, dim.getWidth(), dim.getHeight());
 	}
 
-
-	   /**
-	      Isrctava ovaj višelinijski string unutar zadatog pravougaonika.
-	      @param g2 je grafièki sadraj
-	      @param r je pravougaonik unutar koga se postavlja ovaj višelinijski string (niz)
-	   */
+	/**
+	 */
 	public void draw(Graphics2D g2, Rectangle2D r) {
 		// setLabelText();
 		label.setFont(g2.getFont());

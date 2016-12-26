@@ -221,15 +221,7 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Dodaje ivicu grafikonu koji pridružuje čvorove koji sadrže date tačke.
-	 * Ako tačke nisu unutar čvorova, tada se ivica ne dodaje.
-	 * 
-	 * @param e
-	 *            je ivica za dodavanje
-	 * @param p1
-	 *            je tačka na početku čvora
-	 * @param p2
-	 *            je tačka na kraju čvora
+	 * 给两个Node增加一条关系
 	 */
 	public boolean connect(Edge e, Point2D p1, Point2D p2) {
 		Node n1 = findNode(p1);
@@ -249,13 +241,7 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Dodaje čvor grafiku i to tako da je gornji lijevi ugao ograničenog
-	 * pravougaonika na zadatoj tački.
-	 * 
-	 * @param n
-	 *            je čvor za dodavanje
-	 * @param p
-	 *            je željena lokacija
+	 * 将一个节点添加到指定的坐标处
 	 */
 	public boolean add(Node n, Point2D p) {
 		Rectangle2D bounds = n.getBounds();
@@ -281,11 +267,9 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Nalazi čvor koji sadrži datu tačku.
+	 * 找到含有指定点的Node
 	 * 
-	 * @param p
-	 *            je tačka
-	 * @return vraća čvor koja sadrži p ili null ako čvor ne sadrži p
+	 * 分别根据坐标和Hash值
 	 */
 	public Node findNode(Point2D p) {
 		for (int i = nodes.size() - 1; i >= 0; i--) {
@@ -306,11 +290,7 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Nalazi ivicu koja je sadrži zadatu tačku.
-	 * 
-	 * @param p
-	 *            je tačka
-	 * @return vraća ivicu koja sadrži p ili null ako ivica ne sadrži p
+	 * 找到含有指定点edge
 	 */
 	public Edge findEdge(Point2D p) {
 		for (int i = edges.size() - 1; i >= 0; i--) {
@@ -322,10 +302,10 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Iscrtava grafik.
+	 * draw the graphics
 	 * 
 	 * @param g2
-	 *            je grafički sadržaj
+	 *            the content of Graphics
 	 */
 	public void draw(Graphics2D g2, Grid g) {
 		layout(g2, g);
@@ -342,10 +322,11 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Uklanja čvor i sve ivice koje počinju ili završavaju ovim čvorom.
+	 * 删除一个Node
+	 * 
+	 * 与之相对应的Edge和与之关联的另一个点也要处理
 	 * 
 	 * @param n
-	 *            je čvor za uklanjanje
 	 */
 	public void removeNode(Node n) {
 		if (nodesToBeRemoved.contains(n))
@@ -365,15 +346,14 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Uklanja ivicu iz grafikona.
+	 * 删除Edge
 	 * 
 	 * @param e
-	 *            je ivica za uklanjanje
 	 */
 	public void removeEdge(Edge e) {
 		if (edgesToBeRemoved.contains(e))
 			return;
-		edgesToBeRemoved.add(e);
+		edgesToBeRemoved.add(e);// 为了实现撤销功能，先不真删除
 		for (int i = nodes.size() - 1; i >= 0; i--) {
 			Node n = (Node) nodes.get(i);
 			n.removeEdge(this, e);
@@ -381,21 +361,10 @@ public abstract class Diagram extends Observable {
 		needsLayout = true;
 	}
 
-	/**
-	 * Uzrokuje proračunavanje izgleda grafikona.
-	 */
 	public void layout() {
 		needsLayout = true;
 	}
 
-	/**
-	 * Izračunava izgled grafikona.
-	 * 
-	 * @param g2
-	 *            je grafički sadržaj
-	 * @param g
-	 *            je rešetka (koordinatna mreža) koja se pomjerao
-	 */
 	protected void layout(Graphics2D g2, Grid g) {
 		if (!needsLayout)
 			return;
@@ -412,11 +381,7 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Dobija najmanji pravougaonik ograđujući grafikon.
 	 * 
-	 * @param g2
-	 *            je grafički sadržaj
-	 * @return vraća ograničen pravougaonik
 	 */
 	public Rectangle2D getBounds(Graphics2D g2) {
 		Rectangle2D r = minBounds;
@@ -529,25 +494,21 @@ public abstract class Diagram extends Observable {
 	}
 
 	/**
-	 * Dodaje trenutni dijagram na prostor za istoriju
+	 * 把当前Node加入到History 空间内
 	 */
 	public void saveGraphIntoHistory() {
 		int size = graphHistory.size();
-		// Ukloniti sve sa vrha kursora do kraja istorije
 		if (graphHistoryCursor < size - 1) {
 			int nextPosition = graphHistoryCursor;
 			for (int i = size - 1; i > nextPosition; i--) {
 				graphHistory.remove(i);
 			}
 		}
-		// Nastavi sa spašavanjem
 		size = graphHistory.size();
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		DOMParser.writeDiagram(this, byteArrayOutputStream);
 		graphHistory.add(byteArrayOutputStream);
-		// Postavi kursor na posljednju poziciju
 		graphHistoryCursor = graphHistory.size() - 1;
-		// Ograniči isotriju na 50 dijagrama
 		while (size > GRAPH_HISTORY_CAPACITY) {
 			graphHistory.remove(0);
 			size = graphHistory.size();

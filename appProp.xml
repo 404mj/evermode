@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window>
   <dimension h="754.0" w="1260.0"/>
-  <position x="285.0" y="184.0"/>
+  <position x="285.0" y="240.0"/>
   <localization value="en"/>
   <theme value="javax.swing.plaf.metal.MetalLookAndFeel"/>
   <openedWorkspace loc="/home/zsx/tmp"/>

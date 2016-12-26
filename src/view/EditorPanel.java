@@ -19,6 +19,7 @@ import model.Diagram;
 public class EditorPanel extends JPanel {
 
 	public Diagram model;
+
 	public EditorPanel(Diagram model) {
 		this.model = model;
 		toolBar = new DiagramToolBar(model);
@@ -34,27 +35,21 @@ public class EditorPanel extends JPanel {
 
 		// add listener to confirm diagramPanel closing
 		addVetoableChangeListener(new VetoableChangeListener() {
-			public void vetoableChange(PropertyChangeEvent event)
-					throws PropertyVetoException {
+			public void vetoableChange(PropertyChangeEvent event) throws PropertyVetoException {
 				String name = event.getPropertyName();
 				Object value = event.getNewValue();
 
 				// we only want to check attempts to close a diagramPanel
-				if (name.equals("closed") && value.equals(Boolean.TRUE)
-						&& model.isModified()) {
-					ResourceBundle editorResources = ResourceBundle
-							.getBundle("EditorStrings");
+				if (name.equals("closed") && value.equals(Boolean.TRUE) && model.isModified()) {
+					ResourceBundle editorResources = ResourceBundle.getBundle("EditorStrings");
 
 					// ask user if it is ok to close
-					int result = JOptionPane.showInternalConfirmDialog(
-							EditorPanel.this,
-							editorResources.getString("dialog.close.ok"), null,
-							JOptionPane.YES_NO_OPTION);
+					int result = JOptionPane.showInternalConfirmDialog(EditorPanel.this,
+							editorResources.getString("dialog.close.ok"), null, JOptionPane.YES_NO_OPTION);
 
 					// if the user doesn't agree,cancel the close
 					if (result != JOptionPane.YES_OPTION)
-						throw new PropertyVetoException("User canceled close",
-								event);
+						throw new PropertyVetoException("User canceled close", event);
 				}
 			}
 		});
@@ -66,13 +61,11 @@ public class EditorPanel extends JPanel {
 	}
 
 	public void setTitle(String title) {
-		((JTabbedPane) getParent()).setTitleAt(
-				((JTabbedPane) getParent()).getSelectedIndex(), title);
+		((JTabbedPane) getParent()).setTitleAt(((JTabbedPane) getParent()).getSelectedIndex(), title);
 	}
 
 	public String getTitle() {
-		return ((JTabbedPane) getParent())
-				.getTitleAt(((JTabbedPane) getParent()).getSelectedIndex());
+		return ((JTabbedPane) getParent()).getTitleAt(((JTabbedPane) getParent()).getSelectedIndex());
 	}
 
 	public DiagramPanel panel;

@@ -16,8 +16,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
-	Karakteristike(osobine) editora za TextArea tip.
-*/
+ * 属性编辑器
+ * 
+ * textArea
+ */
 public class TextAreaEditor extends PropertyEditorSupport {
 	public boolean supportsCustomEditor() {
 		return true;
@@ -27,10 +29,8 @@ public class TextAreaEditor extends PropertyEditorSupport {
 		final TextArea value = (TextArea) getValue();
 		final JTextArea textArea = new JTextArea(ROWS, COLUMNS);
 
-		textArea.setFocusTraversalKeys(
-				KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, tab);
-		textArea.setFocusTraversalKeys(
-				KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, shiftTab);
+		textArea.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, tab);
+		textArea.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, shiftTab);
 
 		textArea.setText(value.getText());
 		textArea.getDocument().addDocumentListener(new DocumentListener() {
@@ -51,14 +51,12 @@ public class TextAreaEditor extends PropertyEditorSupport {
 	}
 
 	// The actions
-	private static Action nextFocusAction = new AbstractAction(
-			"Move Focus Forward") {
+	private static Action nextFocusAction = new AbstractAction("Move Focus Forward") {
 		public void actionPerformed(ActionEvent evt) {
 			((Component) evt.getSource()).transferFocus();
 		}
 	};
-	private static Action prevFocusAction = new AbstractAction(
-			"Move Focus Backwards") {
+	private static Action prevFocusAction = new AbstractAction("Move Focus Backwards") {
 		public void actionPerformed(ActionEvent evt) {
 			((Component) evt.getSource()).transferFocusBackward();
 		}

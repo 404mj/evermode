@@ -20,78 +20,63 @@ import model.diagram.NoteNode;
 import model.diagram.PackageNode;
 
 public class CustomTreeCellRenderer extends DefaultTreeCellRenderer implements TreeCellRenderer {
-	
+
 	@Override
-	public Component getTreeCellRendererComponent(JTree tree, Object value,
-			boolean isSelected, boolean isExpanded, boolean isLeaf, int row,
-			boolean hasFocus) {
+	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean isSelected, boolean isExpanded,
+			boolean isLeaf, int row, boolean hasFocus) {
 		JLabel labela = new JLabel();
 		labela.setOpaque(true);
 		labela.setBorder(BorderFactory.createEmptyBorder(2, 0, 2, 0));
 		labela.setBackground(Color.white);
 
-
 		if (isSelected) {
 			labela.setBackground(new Color(205, 232, 255));
 		}
 		labela.setText(value.toString());
-		if(value.toString() == "Projects")
-		{
+		if (value.toString() == "Projects") {
 			labela.setIcon(new ImageIcon("image/general/brick.png"));
-			if(isExpanded)
+			if (isExpanded)
 				labela.setIcon(new ImageIcon("image/project.png"));
 		}
-	
-		if (value instanceof ProjectNode)
-		{
+
+		if (value instanceof ProjectNode) {
 			if (isExpanded) {
-	
-					labela.setIcon(new ImageIcon("image/project_opened.gif"));
+
+				labela.setIcon(new ImageIcon("image/project_opened.gif"));
 			} else {
-	
-					labela.setIcon(new ImageIcon("image/project_closed.gif"));
+
+				labela.setIcon(new ImageIcon("image/project_closed.gif"));
 			}
 		}
-		
-		
+
 		if (value instanceof DiagramNode) {
 			labela.setIcon(new ImageIcon("image/general/diagram.png"));
-			if(((DiagramNode)value).getUserObject().isModified())
+			if (((DiagramNode) value).getUserObject().isModified())
 				labela.setIcon(new ImageIcon("image/general/diagram-modified.png"));
-	
+
 		}
-		if((
-				(tree.getLastSelectedPathComponent() instanceof ProjectNode ) 
-				|| (tree.getLastSelectedPathComponent() instanceof DiagramNode )
-		  ) &&
-		  (tree.getLastSelectedPathComponent() == value)
-		  
-		)
-		{
+		if (((tree.getLastSelectedPathComponent() instanceof ProjectNode)
+				|| (tree.getLastSelectedPathComponent() instanceof DiagramNode))
+				&& (tree.getLastSelectedPathComponent() == value)
+
+		) {
 			super.setClosedIcon(labela.getIcon());
 			super.setOpenIcon(labela.getIcon());
 			super.setLeafIcon(labela.getIcon());
 		}
-		/*else 
-		{
-			super.setClosedIcon(new ImageIcon("image/general/diagram.png"));
-			super.setOpenIcon(new ImageIcon("image/general/diagram.png"));
-		}*/
-		
-		if (value.toString().startsWith("Class Node"))
-		{
+		/*
+		 * else { super.setClosedIcon(new
+		 * ImageIcon("image/general/diagram.png")); super.setOpenIcon(new
+		 * ImageIcon("image/general/diagram.png")); }
+		 */
+
+		if (value.toString().startsWith("Class Node")) {
 			labela.setIcon(new ImageIcon("image/class/Class.png"));
-		}
-		else if (value.toString().startsWith("Interface Node"))
-		{
+		} else if (value.toString().startsWith("Interface Node")) {
 			labela.setIcon(new ImageIcon("image/class/Interface.png"));
-		}
-		else if (value.toString().startsWith("Package Node"))
-		{
+		} else if (value.toString().startsWith("Package Node")) {
 			labela.setIcon(new ImageIcon("image/class/Package.png"));
-		}
-		else if (value.toString().startsWith("Note Node"))
-		{
+		} else if (value.toString().startsWith("Note Node")) {
 			labela.setIcon(new ImageIcon("image/class/Note.png"));
 		}
 
